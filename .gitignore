@@ -1,0 +1,26 @@
+# R / RStudio
+.Rhistory
+.RData
+.Rproj.user/
+.Ruserdata
+*.Rcheck/
+
+# renv (if adopted later)
+renv/library/
+renv/local/
+renv/staging/
+
+# Data: public-use / restricted-use files are often large and/or licensed,
+# so raw and processed data are not versioned. Keep the folders via README.
+data/raw/*
+!data/raw/README.md
+data/processed/*
+!data/processed/README.md
+
+# Regeneratable outputs (uncomment the lines below if you'd rather version them)
+# output/tables/*
+# output/figures/*
+
+# OS
+.DS_Store
+Thumbs.db
