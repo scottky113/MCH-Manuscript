@@ -54,7 +54,7 @@ read_nsch_file <- function(path) {
 
 df_raw <- raw_files |>
   purrr::map(read_nsch_file) |>
-  purrr::list_rbind()
+  dplyr::bind_rows()
 
 readr::write_rds(df_raw, fs::path(path_processed, "01_raw_imported.rds"))
 
