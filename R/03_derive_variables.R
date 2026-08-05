@@ -5,6 +5,7 @@
 # ==============================================================================
 
 source(here::here("R", "00_config.R"))
+pacman::p_load(survey, srvyr)
 
 df <- readr::read_rds(fs::path(path_processed, "02_clean.rds"))
 

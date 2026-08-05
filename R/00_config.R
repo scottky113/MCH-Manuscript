@@ -5,6 +5,10 @@
 # ==============================================================================
 
 # --- Packages -----------------------------------------------------------------
+# Only the packages every script needs are loaded here. Heavier,
+# step-specific packages (survey/srvyr, gtsummary/flextable, broom) are
+# loaded inside the scripts that actually use them, so e.g. importing data
+# doesn't also trigger installing the Word-table export stack.
 if (!requireNamespace("pacman", quietly = TRUE)) install.packages("pacman")
 
 pacman::p_load(
@@ -13,13 +17,7 @@ pacman::p_load(
   tidyverse,     # data wrangling + ggplot2
   janitor,       # clean_names(), tabyl()
   haven,         # read .sas7bdat / .xpt / .dta / .sav (common public-use formats)
-  labelled,      # work with variable/value labels carried over from haven
-  survey,        # complex survey design (weights/strata/clusters)
-  srvyr,         # tidyverse-style wrapper around the survey package
-  gtsummary,     # publication-ready summary/regression tables
-  flextable,     # export gtsummary tables to Word
-  broom,         # tidy model output
-  broom.helpers  # tidy() support for svyglm and other complex models
+  labelled       # work with variable/value labels carried over from haven
 )
 
 # --- Paths ----------------------------------------------------------------

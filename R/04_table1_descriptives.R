@@ -5,6 +5,7 @@
 # ==============================================================================
 
 source(here::here("R", "00_config.R"))
+pacman::p_load(survey, srvyr, gtsummary, flextable)
 
 if (USE_SURVEY_DESIGN) {
   survey_design <- readr::read_rds(fs::path(path_processed, "03_survey_design.rds"))
