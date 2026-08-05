@@ -23,12 +23,14 @@ df_analytic <- df |>
 readr::write_rds(df_analytic, fs::path(path_processed, "03_analytic.rds"))
 
 # --- Survey design object (used by 04/05 when USE_SURVEY_DESIGN is TRUE) ----
+# NSCH: no PSU/cluster variable (ids = 1), strata = fipsst + stratum, nest =
+# TRUE because stratum values repeat across states.
 if (USE_SURVEY_DESIGN) {
   survey_design <- df_analytic |>
     srvyr::as_survey_design(
-      weights = !!survey_vars$weights,
-      strata  = !!survey_vars$strata,
-      ids     = !!survey_vars$ids,
+      ids     = 1,
+      strata  = tidyselect::all_of(survey_vars$strata),
+      weights = tidyselect::all_of(survey_vars$weights),
       nest    = TRUE
     )
   readr::write_rds(survey_design, fs::path(path_processed, "03_survey_design.rds"))

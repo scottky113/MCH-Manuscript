@@ -29,16 +29,17 @@ path_tables    <- here::here("output", "tables")
 path_figures   <- here::here("output", "figures")
 
 # --- Survey design ----------------------------------------------------------
-# Set TRUE for datasets that require weighted estimation (e.g., NSCH, NHANES,
-# NHIS, PRAMS, BRFSS). Set FALSE for a simple random sample / unweighted
-# extract. Fill in the real weight/strata/cluster variable names once known —
-# 03_derive_variables.R uses these to build the survey design object.
-USE_SURVEY_DESIGN <- FALSE
+# NSCH is a complex sample, so weighted estimation is required. Per U.S.
+# Census Bureau guidance for the redesigned (2016+) NSCH:
+#   weight:  fwc               (child-level analysis weight)
+#   strata:  fipsst + stratum  (state FIPS code combined with sampling stratum)
+#   ids:     none — NSCH selects at most one child per household, so there is
+#            no PSU/cluster variable (ids = 1 in as_survey_design(), below)
+USE_SURVEY_DESIGN <- TRUE
 
 survey_vars <- list(
-  weights = "PLACEHOLDER_WEIGHT_VAR",
-  strata  = "PLACEHOLDER_STRATA_VAR",
-  ids     = "PLACEHOLDER_CLUSTER_VAR"   # PSU/cluster id; use ~1 if none
+  weights = "fwc",
+  strata  = c("fipsst", "stratum")
 )
 
 # --- Reproducibility ---------------------------------------------------------

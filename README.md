@@ -1,6 +1,7 @@
 # MCH-Manuscript
 
-Secondary data analysis for a maternal and child health manuscript.
+Secondary data analysis of the National Survey of Children's Health (NSCH)
+for a maternal and child health manuscript.
 
 ## Project structure
 
@@ -28,15 +29,17 @@ docs/
 ## Getting started
 
 1. Open `MCH-Manuscript.Rproj` in RStudio.
-2. Place the raw data file in `data/raw/` (see `data/raw/README.md` for what to
-   record about its source).
-3. In `R/00_config.R`:
-   - Set `USE_SURVEY_DESIGN <- TRUE` and fill in `survey_vars` if the source
-     database requires weighted estimation (e.g., NSCH, NHANES, NHIS, PRAMS,
-     BRFSS). Leave it `FALSE` for a simple random sample / unweighted extract.
+2. Download the NSCH **Topical** data file(s) (SAS or Stata format) from
+   https://www.census.gov/programs-surveys/nsch/data/datasets.html and place
+   them in `data/raw/` (see `data/raw/README.md` for naming conventions;
+   drop in more than one year's file to pool years automatically).
+3. `R/00_config.R` is already configured for NSCH's complex survey design
+   (`USE_SURVEY_DESIGN <- TRUE`, weight `fwc`, strata `fipsst` + `stratum`,
+   no cluster/PSU variable) — adjust only if the design details differ for a
+   specific NSCH year.
 4. Fill in the `TODO`s in `02_clean_data.R` through `06_figures.R` as the
-   study's variables, eligibility criteria, and models are defined. Record
-   variable definitions in `docs/codebook_notes.md` as you go.
+   study's exposure/outcome/covariates, eligibility criteria, and models are
+   defined. Record variable definitions in `docs/codebook_notes.md` as you go.
 5. Run the pipeline: `source("R/99_run_all.R")`, or step through each script
    individually.
 
